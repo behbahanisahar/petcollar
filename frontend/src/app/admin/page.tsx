@@ -15,13 +15,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Table,
   TableBody,
   TableCell,
@@ -62,7 +55,6 @@ export default function AdminPage() {
   const [deleting, setDeleting] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [newIds, setNewIds] = useState<string[] | null>(null);
-  const [qrBaseUrl, setQrBaseUrl] = useState(DEFAULT_BASE_URL);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -219,15 +211,6 @@ export default function AdminPage() {
               className="rounded-xl border-slate-200"
             />
           </div>
-          <div className="space-y-2 flex-1 min-w-[200px]">
-            <Label className="text-slate-700">آدرس پایه QR</Label>
-            <Input
-              value={qrBaseUrl}
-              onChange={(e) => setQrBaseUrl(e.target.value)}
-              placeholder="https://example.com"
-              className="rounded-xl border-slate-200"
-            />
-          </div>
           <Button
             onClick={handleGenerate}
             disabled={generating}
@@ -264,7 +247,7 @@ export default function AdminPage() {
                 >
                   <QRCodeCanvas
                     id={`qr-${id}`}
-                    value={`${(qrBaseUrl || DEFAULT_BASE_URL).replace(/\/$/, "")}/p/${id}`}
+                    value={`${DEFAULT_BASE_URL.replace(/\/$/, "")}/p/${id}`}
                     size={64}
                     level="M"
                   />
