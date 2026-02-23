@@ -1,0 +1,14 @@
+{
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/((?!api)(?!assets).*)", "destination": "/index.html" }
+  ],
+  "functions": {
+    "api/[[...path]].py": {
+      "runtime": "python3.12",
+      "excludeFiles": "frontend/**"
+    }
+  }
+}

@@ -122,7 +122,8 @@ async def generate_collars(
     for uid in ids:
         db.add(Collar(unique_id=uid, is_claimed=False))
     
-    base_url = os.getenv("APP_BASE_URL", "http://localhost:5040")
+    vercel_url = os.getenv("VERCEL_URL")
+    base_url = os.getenv("APP_BASE_URL") or (f"https://{vercel_url}" if vercel_url else "http://localhost:5173")
     return {
         "ids": ids,
         "base_url": base_url.rstrip("/"),

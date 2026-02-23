@@ -5,10 +5,19 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Column, String, Boolean, DateTime, Text, Integer
 from datetime import datetime
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "sqlite+aiosqlite:///./pet_collar.db"
-)
+def _get_database_url() -> str:
+    """Use Postgres on Vercel (POSTGRES_URL from Neon/Marketplace), else SQLite."""
+    url = os.getenv("POSTGRES_URL") or os.getenv("POSTGRES_PRISMA_URL")
+    if url:
+        # SQLAlchemy async needs postgresql+asyncpg://
+        if url.startswith("postgresql://"):
+            return "postgresql+asyncpg://" + url[len("postgresql://"):]
+        if url.startswith("postgres://"):
+            return "postgresql+asyncpg://" + url[len("postgres://"):]
+        return url
+    return os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./pet_collar.db")
+
+DATABASE_URL = _get_database_url()
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 async_session = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
