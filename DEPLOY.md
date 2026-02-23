@@ -8,7 +8,7 @@
 4. تنظیمات:
    - **Root Directory**: `frontend` انتخاب کنید (یا در `vercel.json` تنظیم شده)
    - **Environment Variables**:
-     - `NEXT_PUBLIC_API_URL` = آدرس بک‌اند (بعد از دیپلوی بک‌اند)
+     - `VITE_API_URL` = آدرس بک‌اند (بعد از دیپلوی بک‌اند)
 5. **Deploy** بزنید.
 
 ## ۲. دیپلوی بک‌اند روی Railway
@@ -28,7 +28,7 @@
 
 1. در Vercel به پروژه بروید.
 2. **Settings** → **Environment Variables**
-3. متغیر `NEXT_PUBLIC_API_URL` را اضافه کنید با مقدار آدرس بک‌اند Railway (مثل `https://xxx.railway.app`)
+3. متغیر `VITE_API_URL` را اضافه کنید با مقدار آدرس بک‌اند Railway (مثل `https://xxx.railway.app`)
 4. یک **Redeploy** انجام دهید.
 
 ## ۴. نکات

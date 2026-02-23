@@ -1,6 +1,5 @@
-"use client";
-
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   getCollar,
   setupCollar,
@@ -51,22 +50,14 @@ const emptyPetData: PetData = {
   owner_name: "",
 };
 
-export default function CollarPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const [id, setId] = useState<string | null>(null);
+export default function Collar() {
+  const { id } = useParams<{ id: string }>();
   const [collar, setCollar] = useState<CollarView | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isOwner, setIsOwner] = useState(false);
   const [pin, setPin] = useState("");
   const [pinVerified, setPinVerified] = useState(false);
-
-  useEffect(() => {
-    params.then((p) => setId(p.id));
-  }, [params]);
 
   useEffect(() => {
     if (!id) return;
@@ -104,19 +95,15 @@ export default function CollarPage({
     );
   }
 
-  // Not claimed -> show setup form
   if (!collar.is_claimed) {
     return (
       <SetupForm
         uniqueId={id!}
-        onSuccess={() => {
-          getCollar(id!).then(setCollar);
-        }}
+        onSuccess={() => getCollar(id!).then(setCollar)}
       />
     );
   }
 
-  // Claimed: show view, optionally edit for owner
   return (
     <ViewCollar
       collar={collar}

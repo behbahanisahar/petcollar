@@ -1,7 +1,7 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
+export default function Home() {
   return (
     <div className="modern-bg min-h-screen flex flex-col items-center justify-center p-6">
       <div className="text-center space-y-6 max-w-md">
@@ -16,7 +16,7 @@ export default function HomePage() {
             اگر قلاده دارید، اسکن کنید یا برای تست یک شناسه وارد کنید:
           </p>
           <div className="flex gap-2">
-            <Link href="/demo" className="flex-1">
+            <Link to="/demo" className="flex-1">
               <Button variant="outline" className="w-full rounded-xl border-slate-200 hover:bg-white/80">
                 صفحهٔ تست / دمو
               </Button>

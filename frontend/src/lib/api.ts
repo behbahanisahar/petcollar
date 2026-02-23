@@ -1,11 +1,9 @@
 function getApiBase(): string {
-  if (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL;
-  }
-  if (typeof window !== "undefined") {
-    return window.location.origin;
-  }
-  return "http://localhost:5040";
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl) return envUrl.replace(/\/$/, "");
+  // In dev with Vite proxy, or production without env: use same origin
+  if (typeof window !== "undefined") return window.location.origin;
+  return "http://localhost:8000";
 }
 
 export interface PetData {

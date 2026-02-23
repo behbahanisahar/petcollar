@@ -1,7 +1,5 @@
-"use client";
-
 import { useEffect, useState, useCallback } from "react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -39,7 +37,7 @@ const DEFAULT_BASE_URL =
     ? window.location.origin
     : "http://localhost:5040";
 
-export default function AdminPage() {
+export default function Admin() {
   const [collars, setCollars] = useState<CollarAdminRow[]>([]);
   const [total, setTotal] = useState(0);
   const [totalClaimed, setTotalClaimed] = useState<number | null>(null);
@@ -165,7 +163,7 @@ export default function AdminPage() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <Link href="/">
+          <Link to="/">
             <Button variant="outline" className="rounded-xl">
               بازگشت
             </Button>
@@ -173,7 +171,6 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="glass-card rounded-2xl p-6">
           <p className="text-sm font-medium text-slate-500">کل قلاده‌ها</p>
@@ -189,7 +186,6 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Generate */}
       <div className="glass-card rounded-2xl p-6 md:p-8 space-y-6">
         <div>
           <h2 className="text-xl font-semibold text-slate-900">تولید QR جدید</h2>
@@ -255,8 +251,9 @@ export default function AdminPage() {
                     {id}
                   </span>
                   <Link
-                    href={`/p/${id}`}
+                    to={`/p/${id}`}
                     target="_blank"
+                    rel="noreferrer"
                     className="text-[10px] text-teal-600 hover:underline"
                   >
                     باز کردن
@@ -268,7 +265,6 @@ export default function AdminPage() {
         )}
       </div>
 
-      {/* Table */}
       <div className="glass-card rounded-2xl overflow-hidden">
         <div className="p-6 border-b border-slate-100">
           <h2 className="text-xl font-semibold text-slate-900">لیست قلاده‌ها</h2>
@@ -343,7 +339,7 @@ export default function AdminPage() {
                         <TableCell className="text-slate-700">{c.pet_name || "—"}</TableCell>
                         <TableCell className="text-slate-700">{c.owner_contact || "—"}</TableCell>
                         <TableCell>
-                          <Link href={`/p/${c.unique_id}`} target="_blank">
+                          <Link to={`/p/${c.unique_id}`} target="_blank" rel="noreferrer">
                             <Button variant="ghost" size="sm" className="text-teal-600 hover:text-teal-700 hover:bg-teal-50">
                               مشاهده
                             </Button>

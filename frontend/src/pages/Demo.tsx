@@ -1,18 +1,16 @@
-"use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function DemoPage() {
-  const router = useRouter();
+export default function Demo() {
+  const navigate = useNavigate();
   const [id, setId] = useState("");
 
   const handleGo = () => {
     const trimmed = id.trim();
-    if (trimmed) router.push(`/p/${trimmed}`);
+    if (trimmed) navigate(`/p/${trimmed}`);
   };
 
   return (
